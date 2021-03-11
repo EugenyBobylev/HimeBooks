@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+        <title>{{title}}</title>
+    {% else %}
+        <title>Мои книги</title>
+    {% endif %}
+</head>
+<body>
+    <div><a href="/index">Книги</a></div>
+    <hr>
+    {% block content%}
+    {% endblock %}
+</body>
+</html>

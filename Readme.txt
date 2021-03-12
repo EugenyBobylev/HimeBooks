@@ -8,7 +8,7 @@ flask shell
 flask db init
 
 # создать сценарий миграции
-flask db migrate -m "users table"
+flask db migrate -m "books table"
 
 # применить изменения к БД
 flask db upgrade
@@ -25,3 +25,6 @@ export FLASK_DEBUG = 1
 
 # Просмотреть значение указанной переменной окружения
 printenv FLASK_APP
+
+# Эээээээ что-то с работой .env , .flaskenv
+pip install python-dotenv

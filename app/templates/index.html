@@ -2,8 +2,12 @@
 
 {% block content %}
     <h3Список книг</h3>
-    <img src="{{url_for('static', filename='img.jpg')}}" align="middle" />
     {% for book in books%}
-<div><p>{{ book.book_name}}</p></div>
+    <div>
+        <p>
+            {{ book.book_name}}<br>
+            <img src="/static/{{book.cover}}" width="90" height="90" />
+        </p>
+    </div>
     {% endfor %}
 {% endblock %}

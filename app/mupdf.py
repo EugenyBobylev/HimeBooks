@@ -15,21 +15,32 @@ def save_png(img_data, png_fn: str):
         f.write(img_data)
 
 
-def save_cover_png(pdf_fn: str, png_fn: str):
+def save_cover(pdf_fn: str, png_fn: str):
     img_data = get_cover_png(pdf_fn)
     save_png(img_data, png_fn)
 
 
-def save_cover(pdf_fn: str):
+def get_cover_fn(pdf_fn: str):
+    """
+    Get file name of cover image without path
+    """
     book_path = Path(pdf_fn)
-    book_exists = Path(book_path).exists()
-    if book_exists:
-        img_fn = book_path.stem + '.png'   # image file name without path
-        img_path = Path(__file__).parent / 'static' / img_fn
-        cover_exists = Path(img_path).exists()
-        if not cover_exists:
-            img_fn = str(img_path)
-            save_cover_png(pdf_fn, img_fn)
+    img_fn = book_path.stem + '.png'   # image file name without path
+    return img_fn
+
+
+def get_cover_png_fn(cover_png_fn: str):
+    """
+    Get path and file name of cover image
+    """
+    img_path = Path(__file__).parent / 'static' / cover_png_fn
+    cover_fn = str(img_path)
+    return cover_fn
+
+
+def cover_exists(cover_fn: str) -> bool:
+    is_exists: bool = Path(cover_fn).exists()
+    return is_exists
 
 
 # if __name__ == '__main__':

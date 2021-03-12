@@ -1,17 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% if title %}
-        <title>{{title}}</title>
-    {% else %}
-        <title>Мои книги</title>
-    {% endif %}
-</head>
-<body>
-    <div><a href="/index">Книги</a></div>
-    <hr>
-    {% block content%}
-    {% endblock %}
-</body>
-</html>
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+    {% if title%}{{ title }}{% else %}Мои книги{% endif %}
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-default">
+
+    <div class="navbar navbar-fixed-top">
+        <ul class="nav navbar-nav">
+            <li><a href="/index">Книги</a></li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content%}
+{% endblock %}

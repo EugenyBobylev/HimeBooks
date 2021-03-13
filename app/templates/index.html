@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h3Список книг</h3>
+    <div class="row">
     {% for book in books%}
-    <div>
-        <p>
-            {{ book.book_name}}<br>
-            <img src="/static/{{book.cover}}" width="90" height="90" />
-        </p>
-    </div>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="thumbnail">
+                <img src="/static/{{book.cover}}"/>
+            </div>
+            <div class="caption">
+                <p class="text">{{ book.book_name}}</p>
+            </div>
+        </div>
     {% endfor %}
+    </div>
 {% endblock %}

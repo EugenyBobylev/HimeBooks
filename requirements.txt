@@ -2,7 +2,6 @@ alembic==1.5.7
 click==7.1.2
 dominate==2.6.0
 Flask==1.1.2
-Flask-Bootstrap==3.3.7.1
 Flask-Migrate==2.7.0
 Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3
@@ -11,7 +10,6 @@ Jinja2==2.11.3
 Mako==1.1.4
 MarkupSafe==1.1.1
 PyMuPDF==1.18.9
-PyPDF2==1.26.0
 python-dateutil==2.8.1
 python-dotenv==0.15.0
 python-editor==1.0.4

@@ -1,14 +1,5 @@
 {% extends "base.html" %}
 
 {% block content %}
-   <h1>Настройки</h1>
-   <ul>
-      <li>{{request.url}}</li>
-      <li>{{request.base_url}}</li>
-      <li>{{request.path}}</li>
-      <li>{{request.script_root}}</li>
-      {% for header in request.headers %}
-      <li>{{header}}</li>
-      {% endfor%}
-   </ul>
+   <h1>Папки содержащие книги</h1>
 {% endblock %}

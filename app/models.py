@@ -19,3 +19,10 @@ class Book(db.Model):
 
     def __repr__(self):
         return f'cover: {self.cover}'
+
+
+class Catalog(db.Model):
+    catalog = db.Column(db.String(512), primary_key=True)
+
+    def __repr__(self):
+        return f'{self.catalog}'

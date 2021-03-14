@@ -37,7 +37,9 @@
     {% for book in books.items %}
         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
             <div class="thumbnail">
-                <img src="/static/{{book.cover}}"/>
+                <a href="/book?page={{books.page}}&path={{book.pdf_name}}">
+                    <img src="/static/{{book.cover}}"/>
+                </a>
             </div>
             <div class="caption">
                 <p class="text">{{ book.book_name}}</p>

@@ -1,6 +1,6 @@
 from flask import render_template, request
 from app import app
-from app.models import Book, PdfBook
+from app.models import Book
 
 ROWS_PER_PAGE = 3
 

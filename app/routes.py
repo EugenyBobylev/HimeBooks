@@ -23,7 +23,10 @@ def index(page=1):
 def open_book():
     path = request.args.get('path')
     page = request.args.get('page')
-    print(path)
-    print(page)
     os.popen(f'okular "{path}"')
     return redirect(url_for('index', page=page))
+
+
+@app.route('/settings')
+def settings():
+    return render_template('settings.html')

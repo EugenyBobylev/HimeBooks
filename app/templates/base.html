@@ -17,6 +17,14 @@
                     ProfITeam
                 </div>
             </div>
+            <ul class="nav navbar-nav">
+                <li {% if request.path.startswith('/index') %} class="active" {% endif %}>
+                    <a href="{{ url_for('index') }}">Каталог</a>
+                </li>
+                <li {% if request.path=='/settings' %} class="active" {% endif %}>
+                    <a href="{{ url_for('settings') }}">Настройки</a>
+                </li>
+            </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="найти книгу">

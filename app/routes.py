@@ -2,7 +2,7 @@ import os
 
 from flask import redirect, render_template, request, url_for
 from app import app
-from app.models import Book
+from app.models import Book, Catalog
 
 ROWS_PER_PAGE = 5
 
@@ -29,4 +29,5 @@ def open_book():
 
 @app.route('/settings')
 def settings():
-    return render_template('settings.html')
+    catalogs = Catalog.query.all()
+    return render_template('settings.html', catalogs=catalogs)

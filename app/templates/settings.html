@@ -1,5 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-   <h1>Папки содержащие книги</h1>
+   <h1 class="mx-3">Папки содержащие книги</h1>
+   <div class="row">
+      <div class="col-lg-8" style="margin-left:1em; margin-bottom:2em">
+         <div class="input-group ml-1">
+            <input type="text" class="form-control" placeholder="/home/bobylev/Downloads/Books/">
+            <span class="input-group-btn">
+               <button class="btn btn-default" type="button">Добавить папку</button>
+            </span>
+            <span class="input-group-btn">
+               <button class="btn btn-default" type="button">Перечитать каталог</button>
+            </span>
+         </div>
+      </div>
+   </div>
+
+   <div class="row>">
+      <div class="col-lg-8">
+         <table class="table table-bordered table-hover">
+            <tr>
+               <th>Каталог с книгами</th>
+            </tr>
+            {% for catalog in catalogs %}
+               <tr>
+                  <td>{{catalog}}</td>
+               </tr>
+            {% endfor %}
+         </table>
+      </div>
+   </div>
 {% endblock %}

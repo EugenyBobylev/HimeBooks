@@ -31,3 +31,16 @@ def open_book():
 def settings():
     catalogs = Catalog.query.all()
     return render_template('settings.html', catalogs=catalogs)
+
+
+@app.route('/addcatalog')
+def add_catalog():
+    catalog = request.args.get('catalog')
+    print(str(catalog))
+    return redirect(url_for('settings'))
+
+
+@app.route('/updatecatalogs')
+def update_catalogs():
+    print('*' * 120)
+    return redirect(url_for('settings'))

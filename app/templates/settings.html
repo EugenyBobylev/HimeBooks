@@ -5,12 +5,12 @@
    <div class="row">
       <div class="col-lg-8" style="margin-left:1em; margin-bottom:2em">
          <div class="input-group ml-1">
-            <input type="text" class="form-control" placeholder="/home/bobylev/Downloads/Books/">
+            <input type="text" class="form-control" id="pdf" placeholder="/home/bobylev/Downloads/Books/">
             <span class="input-group-btn">
-               <button class="btn btn-default" type="button">Добавить папку</button>
+               <button class="btn btn-default type="button" onclick="addCatalog()">Добавить папку</button>
             </span>
             <span class="input-group-btn">
-               <button class="btn btn-default" type="button">Перечитать каталог</button>
+               <button class="btn btn-default" type="button" onclick="updateCatalogs()">Перечитать каталог</button>
             </span>
          </div>
       </div>
@@ -29,5 +29,27 @@
             {% endfor %}
          </table>
       </div>
+
+      <script>
+         function addCatalog(){
+            var catalog = document.getElementById('pdf').value;
+            if (catalog == null || catalog.length == 0){
+               alert("Каталог не задан или пустой");
+               return;
+            }
+            let xhr = new XMLHttpRequest();
+            let url = '/addcatalog?catalog=' + encodeURIComponent(catalog);
+            xhr.open('GET', url);
+            xhr.send();
+            alert(catalog);
+         }
+
+         function updateCatalogs(){
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', '/updatecatalogs');
+            xhr.send();
+            alert("updateCatalog")
+         }
+      </script>
    </div>
 {% endblock %}

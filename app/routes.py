@@ -9,9 +9,7 @@ ROWS_PER_PAGE = 5
 
 all_books = []
 if not all_books:
-    pdf.init()
-    all_books = pdf.get_books()
-    print(len(all_books))
+    all_books = pdf.init()
 
 
 @app.route('/')

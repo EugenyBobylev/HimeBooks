@@ -1,6 +1,7 @@
 from pathlib import Path
 import pickle
 from typing import Dict, List, Any
+from config import Config
 
 from app.models import Book
 
@@ -37,6 +38,19 @@ def find_all_pdf_files():
 
 
 def init():
+
+    dumpfn = str(Config.BASE_DIR) + '/app/static/all_books.pkl'
+    all_books = []
+    if Path(dumpfn).exists():
+        all_books = load(dumpfn)
+    else:
+        init_filenames()
+        all_books = get_books()
+        dump(all_books, dumpfn)
+    return all_books
+
+
+def init_filenames():
     # TODO Сделать загрузку
     all_book_files['/home/bobylev/Downloads/Books/'] = ''
     all_book_files['/media/bobylev/Data/Downloads/Telegram Desktop/'] = ''
@@ -110,16 +124,10 @@ class Pagination(object):
 
 
 if __name__ == '__main__':
+    p = Path(__file__).parent.parent
+    print(f'p={p}')
+    print(str(Config.BASE_DIR) + '/app/static/all_books.pkl')
     # TODO сделать тесты
-    init()
-    # books = get_books()
-    # print(len(books))
-    # print(books)
-    data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-    p1 = paginate(data, page=1, per_page=2)
-    print(p1.iter_pages(right_current=4))
-
-    # dump(all_books, './static/all_books.pkl')
-    other_books = load('./static/all_books.pkl')
-    print(f'other_books = {other_books}')
+    ddd = init()
+    print(len(ddd))
 

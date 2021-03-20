@@ -41,8 +41,3 @@ def get_cover_png_fn(cover_png_fn: str):
 def cover_exists(cover_fn: str) -> bool:
     is_exists: bool = Path(cover_fn).exists()
     return is_exists
-
-
-# if __name__ == '__main__':
-#    book_pdf_fn = '/home/bobylev/Downloads/Books/Docker_на_практике_2020.pdf'
-#    save_cover(book_pdf_fn)

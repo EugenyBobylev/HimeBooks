@@ -1,10 +1,8 @@
 import os
-from pathlib import Path
 from flask import redirect, render_template, request, url_for
 
 from app import app
-from app import Config
-from app.models import Book, Catalog
+from app.models import Catalog
 import app.bookspdf as pdf
 
 ROWS_PER_PAGE = 5
@@ -12,13 +10,8 @@ ROWS_PER_PAGE = 5
 all_books = []
 if not all_books:
     pdf.init()
-    _books = pdf.get_books()
-    for pdf_name in _books:
-        book = Book()
-        book.pdf_name = pdf_name
-        book.book_name = Path(pdf_name).stem
-        book.set_cover()
-        all_books.append(book)
+    all_books = pdf.get_books()
+    print(len(all_books))
 
 
 @app.route('/')
@@ -26,13 +19,11 @@ if not all_books:
 @app.route('/page/<int:page>')
 @app.route('/index/page/<int:page>')
 def index(page=1):
-    print(len(all_books))
     page = request.args.get('page', page, type=int)
-    books = pdf.paginate(all_books, page=page, per_page=ROWS_PER_PAGE)
-    # books = Book.query.paginate(page=page, per_page=ROWS_PER_PAGE)
-    for book in books.items:
+    page_books = pdf.paginate(all_books, page=page, per_page=ROWS_PER_PAGE)
+    for book in page_books.items:
         book.set_cover()
-    return render_template('index.html', books=books)
+    return render_template('index.html', books=page_books)
 
 
 @app.route('/book')

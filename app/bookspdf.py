@@ -1,43 +1,70 @@
 from pathlib import Path
+import pickle
 from typing import Dict, List, Any
 
-all_books: Dict = {}
+from app.models import Book
+
+all_book_files: Dict = {}
 
 
-def get_books():
-    pdf_books: List[Any] = [el for lst in all_books.values() for el in lst]
+def get_files():
+    pdf_books: List[Any] = [el for lst in all_book_files.values() for el in lst]
     return pdf_books
 
 
 def get_catalogs():
-    return all_books.keys()
+    return all_book_files.keys()
 
 
-def get_catalog_books(catalog):
+def find_pdf_files(catalog):
     """
     Get file name of pdf's files
     """
-    pdf_books = [str(file) for file in Path(catalog).iterdir() if file.suffix == '.pdf']
-    return pdf_books
+    pdf_files = [str(file) for file in Path(catalog).iterdir() if file.suffix == '.pdf']
+    return pdf_files
 
 
-def init_all_books():
+def find_all_pdf_files():
     """
     Reload information about all pdf books
     """
-    global all_books
-    catalogs = all_books.keys()
-    all_books = {}
+    global all_book_files
+    catalogs = all_book_files.keys()
+    all_book_files = {}
     for catalog in catalogs:
-        pdf_books = get_catalog_books(catalog)
-        all_books[catalog] = pdf_books
+        pdf_files = find_pdf_files(catalog)
+        all_book_files[catalog] = pdf_files
 
 
 def init():
     # TODO Сделать загрузку
-    all_books['/home/bobylev/Downloads/Books/'] = ''
-    all_books['/media/bobylev/Data/Downloads/Telegram Desktop/'] = ''
-    init_all_books()
+    all_book_files['/home/bobylev/Downloads/Books/'] = ''
+    all_book_files['/media/bobylev/Data/Downloads/Telegram Desktop/'] = ''
+    find_all_pdf_files()
+
+
+def get_books():
+    all_books = []
+    files = get_files()
+    for file_name in files:
+        book = Book()
+        book.pdf_name = file_name
+        book.book_name = Path(file_name).stem
+        book.set_cover()
+        all_books.append(book)
+    return all_books
+
+
+def dump(obj, fname):
+    with open(fname, 'wb') as f:
+        pickle.dump(obj, f)
+
+
+def load(fname):
+    obj = None
+    with open(fname, 'rb') as f:
+        obj = pickle.load(f)
+    return obj
 
 
 def paginate(full_data=None, page=None, per_page=None):
@@ -82,12 +109,17 @@ class Pagination(object):
         return list(result1.union(result2).union(result3))
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     # TODO сделать тесты
-    # init()
+    init()
     # books = get_books()
     # print(len(books))
     # print(books)
-    # data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-    # p1 = paginate(data, page=1, per_page=2)
-    # print(p1.iter_pages(right_current=4))
+    data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    p1 = paginate(data, page=1, per_page=2)
+    print(p1.iter_pages(right_current=4))
+
+    # dump(all_books, './static/all_books.pkl')
+    other_books = load('./static/all_books.pkl')
+    print(f'other_books = {other_books}')
+

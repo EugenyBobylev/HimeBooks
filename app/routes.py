@@ -10,14 +10,15 @@ import app.bookspdf as pdf
 ROWS_PER_PAGE = 5
 
 all_books = []
-if not Config.all_books:
+if not all_books:
     pdf.init()
-    books = pdf.get_books()
-    for pdf_name in books:
+    _books = pdf.get_books()
+    for pdf_name in _books:
         book = Book()
         book.pdf_name = pdf_name
         book.book_name = Path(pdf_name).stem
         book.set_cover()
+        all_books.append(book)
 
 
 @app.route('/')
@@ -27,7 +28,8 @@ if not Config.all_books:
 def index(page=1):
     print(len(all_books))
     page = request.args.get('page', page, type=int)
-    books = Book.query.paginate(page=page, per_page=ROWS_PER_PAGE)
+    books = pdf.paginate(all_books, page=page, per_page=ROWS_PER_PAGE)
+    # books = Book.query.paginate(page=page, per_page=ROWS_PER_PAGE)
     for book in books.items:
         book.set_cover()
     return render_template('index.html', books=books)

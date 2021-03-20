@@ -1,8 +1,6 @@
 from pathlib import Path
 from typing import Dict, List, Any
 
-from app import bookspdf
-
 all_books: Dict = {}
 
 
@@ -36,6 +34,7 @@ def init_all_books():
 
 
 def init():
+    # TODO Сделать загрузку
     all_books['/home/bobylev/Downloads/Books/'] = ''
     all_books['/media/bobylev/Data/Downloads/Telegram Desktop/'] = ''
     init_all_books()
@@ -83,12 +82,12 @@ class Pagination(object):
         return list(result1.union(result2).union(result3))
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
+    # TODO сделать тесты
     # init()
     # books = get_books()
     # print(len(books))
     # print(books)
-    data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-    p1 = paginate(data, page=1, per_page=2)
-    print(p1.iter_pages(right_current=4))
-
+    # data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    # p1 = paginate(data, page=1, per_page=2)
+    # print(p1.iter_pages(right_current=4))

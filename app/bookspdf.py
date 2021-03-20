@@ -123,11 +123,11 @@ class Pagination(object):
         return list(result1.union(result2).union(result3))
 
 
-if __name__ == '__main__':
-    p = Path(__file__).parent.parent
-    print(f'p={p}')
-    print(str(Config.BASE_DIR) + '/app/static/all_books.pkl')
-    # TODO сделать тесты
-    ddd = init()
-    print(len(ddd))
+# if __name__ == '__main__':
+#    p = Path(__file__).parent.parent
+#    print(f'p={p}')
+#    print(str(Config.BASE_DIR) + '/app/static/all_books.pkl')
+#    # TODO сделать тесты
+#    ddd = init()
+#    print(len(ddd))
 

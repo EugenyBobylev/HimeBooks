@@ -5,7 +5,7 @@ from app import app
 from app.models import Catalog
 import app.bookspdf as pdf
 
-ROWS_PER_PAGE = 5
+ROWS_PER_PAGE = 12
 
 all_books = []
 if not all_books:

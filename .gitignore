@@ -5,3 +5,4 @@
 /migrations/__pycache__/
 /migrations/versions/__pycache__/
 /app.db
+/app/static/

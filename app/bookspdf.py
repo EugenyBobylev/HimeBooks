@@ -63,7 +63,7 @@ def paginate(full_data=None, page=None, per_page=None):
 class Pagination(object):
     has_next: bool = False
     has_prev: bool = False
-    items = []            # the items for the current page
+    items = []              # the items for the current page
     next_num: int = None    # number of the next page
     page: int = None        # the current page number (1 indexed)
     pages: int = None       # the total number of pages
@@ -71,15 +71,16 @@ class Pagination(object):
     prev_num: int = None    # number of the previous page
     total: int = None       # the total number of items
 
-    def iter_pages(self, left_edge=2, left_current=2, right_current=5, right_edge=2):
-        page_items = []
-        if self.page >= left_edge:
-            page_items = list(range(1, left_edge + 1))
-        else:
-            page_items = list(range(1, self.page + 1))
-        if self.page >
-
-        return page_items
+    def iter_pages(self, left_edge=2, left_current=2, right_current=2, right_edge=2):
+        _data = list(range(1, self.pages+1))
+        result1 = set(_data[0:left_edge])
+        left = self.page-left_current-1
+        left = left if left > 0 else 0
+        result2 = set(_data[left:self.page+right_current])
+        left = self.pages - right_edge
+        left = left if left > 0 else 0
+        result3 = set(_data[left: self.pages])
+        return list(result1.union(result2).union(result3))
 
 
 if __name__ == '__main__':
@@ -87,19 +88,7 @@ if __name__ == '__main__':
     # books = get_books()
     # print(len(books))
     # print(books)
-    data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    p1 = paginate(data, 1, 5)
-    p2 = paginate(data, 2, 5)
-    p3 = paginate(data, 3, 4)
-    p9 = paginate(data, 9, 5)
-    p1_1 = paginate(data, 1, 100)
-    print(p1.items)
-    print(p2.items)
-    print(p3.items)
-    print(p9.items)
-    print(p1_1.items)
+    data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    p1 = paginate(data, page=1, per_page=2)
+    print(p1.iter_pages(right_current=4))
 
-    print(paginate(None, 1, 10).items)
-    print(paginate(data, 0, 10).items)
-    print(paginate(None, None, None).items)
-    print(paginate(data, 1, None).items)

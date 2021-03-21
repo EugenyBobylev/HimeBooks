@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript input Event Demo</title>
+</head>
+<body>
+    <input placeholder="Enter some text" id="message" />
+    <div contenteditable="true" id="msg">
+       <p>Текст для правки</p>
+    </div>
+    <p id="result"></p>
+    <script>
+      var message = document.querySelector('#msg');
+      var result = document.querySelector('#result');
+
+      message.addEventListener( 'keypress', (evt) =>{
+         if (evt.which == 13){
+            evt.preventDefault();
+         }
+      });
+
+      message.addEventListener('input', function () {
+         result.textContent = message.textContent;
+      });
+    </script>
+</body>
+</html>

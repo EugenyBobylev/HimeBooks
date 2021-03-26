@@ -7,13 +7,18 @@
 </head>
 <body>
     <input placeholder="Enter some text" id="message" />
-    <div contenteditable="true" id="msg">
-       <p>Текст для правки</p>
+    <div contenteditable="false" id="msg">
+       Текст для правки
     </div>
+    <div contenteditable="false" id="msg">
+       Текст для правки
+    </div>
+
     <p id="result"></p>
     <script>
       var message = document.querySelector('#msg');
       var result = document.querySelector('#result');
+      var ed = document.querySelectorAll("div[contenteditable]")
 
       message.addEventListener( 'keypress', (evt) =>{
          if (evt.which == 13){

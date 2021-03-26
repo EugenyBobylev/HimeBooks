@@ -53,6 +53,7 @@ def init():
 def init_filenames():
     # TODO Сделать загрузку
     all_book_files['/home/bobylev/Downloads/Books/'] = ''
+    all_book_files['/home/bobylev/Downloads/Telegram Desktop/'] = ''
     all_book_files['/media/bobylev/Data/Downloads/Telegram Desktop/'] = ''
     find_all_pdf_files()
 

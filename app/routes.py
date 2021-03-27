@@ -19,6 +19,7 @@ if not all_books:
 def index(page=1):
     page = request.args.get('page', page, type=int)
     page_books = pdf.paginate(all_books, page=page, per_page=ROWS_PER_PAGE)
+    page_books = pdf.filter_exist_books(page_books)
     for book in page_books.items:
         book.set_cover()
     return render_template('index.html', books=page_books)

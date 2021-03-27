@@ -40,8 +40,10 @@ def read_paths() -> List[str]:
     return _paths
 
 
-# if __name__ == '__main__':
-#    fn = get_config_fn()
-#    create_config_ini(fn, ['home/bobylev/Downloads/books/', '/media/data/DownLoad/Books/'])
+if __name__ == '__main__':
+    fn = get_config_fn()
+    create_config_ini(fn, ['/home/bobylev/Downloads/Books/',
+                           '/home/bobylev/Downloads/Telegram Desktop/',
+                           '/media/bobylev/Data/Downloads/Telegram Desktop/'])
 #    paths = read_paths()
 #    print(paths)

@@ -47,24 +47,23 @@ def filter_exist_books(books: List[Book]):
     return filtered_books
 
 
-def init():
-    dumpfn = str(Config.BASE_DIR) + '/app/static/config/all_books.pkl'
+def init(catalogs: List[str]):
+    # dumpfn = str(Config.BASE_DIR) + '/app/static/config/all_books.pkl'
     all_books = []
-    if Path(dumpfn).exists():
-        loaded_books = load(dumpfn)
-        all_books = filter_exist_books(loaded_books)
-    else:
-        init_filenames()
-        all_books = get_books()
-        dump(all_books, dumpfn)
+    # if Path(dumpfn).exists():
+    #    loaded_books = load(dumpfn)
+    #    all_books = filter_exist_books(loaded_books)
+    # else:
+    init_filenames(catalogs)
+    all_books = get_books()
+    # dump(all_books, dumpfn)
     return all_books
 
 
-def init_filenames():
+def init_filenames(catalogs: List[str]):
     # TODO Сделать загрузку
-    all_book_files['/home/bobylev/Downloads/Books/'] = ''
-    all_book_files['/home/bobylev/Downloads/Telegram Desktop/'] = ''
-    all_book_files['/media/bobylev/Data/Downloads/Telegram Desktop/'] = ''
+    for catalog in catalogs:
+        all_book_files[catalog] = ''
     find_all_pdf_files()
 
 

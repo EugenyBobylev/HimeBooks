@@ -4,12 +4,14 @@ from flask import redirect, render_template, request, url_for
 from app import app
 from app.models import Catalog
 import app.bookspdf as pdf
+import app.iniconfig as cfg
 
 ROWS_PER_PAGE = 12
 
 all_books = []
 if not all_books:
-    all_books = pdf.init()
+    catalogs = cfg.read_paths()
+    all_books = pdf.init(catalogs)
 
 
 @app.route('/')
@@ -34,7 +36,7 @@ def open_book():
 
 @app.route('/settings')
 def settings():
-    catalogs = Catalog.query.all()
+    catalogs = cfg.read_paths()
     return render_template('settings.html', catalogs=catalogs)
 
 

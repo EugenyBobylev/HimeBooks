@@ -7,24 +7,28 @@
 </head>
 <body>
     <input placeholder="Enter some text" id="message" />
-    <div contenteditable="false" id="msg">
+    <div contenteditable="true" id="msg" class="ht">
        Текст для правки
     </div>
-    <div contenteditable="false" id="msg">
+    <div contenteditable="true" id="msg" class="ht">
        Текст для правки
     </div>
 
     <p id="result"></p>
     <script>
-      var message = document.querySelector('#msg');
+      var message = document.querySelector('.ht');
       var result = document.querySelector('#result');
-      var ed = document.querySelectorAll("div[contenteditable]")
+      var ed = document.querySelectorAll('.ht')
+      for (let div of ed){
+         div.addEventListener( 'keypress', (evt) =>{
+            if (evt.which == 13){
+                evt.preventDefault();
+                div = evt.target
+                div.blur()
 
-      message.addEventListener( 'keypress', (evt) =>{
-         if (evt.which == 13){
-            evt.preventDefault();
-         }
-      });
+            }
+         });
+      }
 
       message.addEventListener('input', function () {
          result.textContent = message.textContent;

@@ -49,5 +49,16 @@
             {% block content%}{% endblock %}
         </div>
     </div>
+    <script>
+      var ed = document.querySelectorAll('.ht')
+      for (let div of ed){
+         div.addEventListener( 'keypress', (evt) =>{
+            if (evt.which == 13){
+                evt.preventDefault();
+                evt.target.blur()
+            }
+         });
+      }
+    </script>
 </body>
 </html>

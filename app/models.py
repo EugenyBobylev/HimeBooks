@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from app import db
 from app.mupdf import get_cover_fn, get_cover_png_fn, cover_exists, save_cover
 
@@ -16,6 +18,9 @@ class Book(db.Model):
         exists = cover_exists(cover_png_fn)
         if not exists:
             save_cover(self.pdf_name, cover_png_fn)
+
+    def exists(self) -> bool:
+        return Path(self.pdf_name).exists()
 
     def __repr__(self):
         return f'cover: {self.cover}'

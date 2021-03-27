@@ -1,3 +1,6 @@
+"""
+ Модуль чтения обложки pdf
+"""
 from pathlib import Path
 import fitz
 
@@ -33,7 +36,7 @@ def get_cover_png_fn(cover_png_fn: str):
     """
     Get path and file name of cover image
     """
-    img_path = Path(__file__).parent / 'static' / cover_png_fn
+    img_path = Path(__file__).parent / 'static/covers' / cover_png_fn
     cover_fn = str(img_path)
     return cover_fn
 

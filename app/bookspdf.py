@@ -37,12 +37,20 @@ def find_all_pdf_files():
         all_book_files[catalog] = pdf_files
 
 
-def init():
+def filter_exist_books(books: List[Book]):
+    """
+     Отфильтровать только существующие книги
+    """
+    filtered_books = [b for b in books if b.exists()]
+    return filtered_books
 
-    dumpfn = str(Config.BASE_DIR) + '/app/static/all_books.pkl'
+
+def init():
+    dumpfn = str(Config.BASE_DIR) + '/app/static/config/all_books.pkl'
     all_books = []
     if Path(dumpfn).exists():
-        all_books = load(dumpfn)
+        loaded_books = load(dumpfn)
+        all_books = filter_exist_books(loaded_books)
     else:
         init_filenames()
         all_books = get_books()
@@ -128,7 +136,6 @@ class Pagination(object):
 #    p = Path(__file__).parent.parent
 #    print(f'p={p}')
 #    print(str(Config.BASE_DIR) + '/app/static/all_books.pkl')
-#    # TODO сделать тесты
+    # TODO сделать тесты
 #    ddd = init()
 #    print(len(ddd))
-

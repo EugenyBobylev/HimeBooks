@@ -16,23 +16,25 @@
 
     <p id="result"></p>
     <script>
-      var message = document.querySelector('.ht');
-      var result = document.querySelector('#result');
+      oldValue = "111"
       var ed = document.querySelectorAll('.ht')
       for (let div of ed){
-         div.addEventListener( 'keypress', (evt) =>{
-            if (evt.which == 13){
+         div.addEventListener( 'keydown', (evt) =>{
+            var element = evt.target
+            if (evt.keyCode == 13){
                 evt.preventDefault();
-                div = evt.target
-                div.blur()
-
+                element.blur()
+            }
+            if (evt.keyCode == 27){
+                element.textContent = oldValue;
+                element.blur()
             }
          });
+         div.addEventListener("focus", (evt) =>{
+            var element = event.target;
+	         oldValue = element.textContent;
+         });
       }
-
-      message.addEventListener('input', function () {
-         result.textContent = message.textContent;
-      });
     </script>
 </body>
 </html>

@@ -50,13 +50,23 @@
         </div>
     </div>
     <script>
+      var oldValue = "";
       var ed = document.querySelectorAll('.ht')
       for (let div of ed){
-         div.addEventListener( 'keypress', (evt) =>{
-            if (evt.which == 13){
+         div.addEventListener( 'keydown', (evt) =>{
+  		      var element = evt.target;
+            if (evt.keyCode == 13){
                 evt.preventDefault();
-                evt.target.blur()
+                element.blur();
             }
+            if (evt.keyCode == 27){
+                element.textContent = oldValue;
+                element.blur();
+            }
+         });
+         div.addEventListener("focus", (evt) =>{
+            var element = event.target;
+	         oldValue = element.textContent;
          });
       }
     </script>

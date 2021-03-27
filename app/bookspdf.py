@@ -41,7 +41,9 @@ def filter_exist_books(books: List[Book]):
     """
      Отфильтровать только существующие книги
     """
-    filtered_books = [b for b in books if b.exists()]
+    filtered_books = None
+    if books:
+        filtered_books = [b for b in books if b.exists()]
     return filtered_books
 
 
@@ -91,8 +93,11 @@ def load(fname):
 
 
 def paginate(full_data=None, page=None, per_page=None):
+    filtered_data = None
     pagination = Pagination()
-    if full_data and page and per_page and page > 0 and per_page > 0:
+    if full_data:
+        filtered_data = filter_exist_books(full_data)
+    if filtered_data and page and per_page and page > 0 and per_page > 0:
         pagination.page = page
         pagination.per_page = per_page
 

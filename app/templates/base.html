@@ -57,6 +57,17 @@
   		      var element = evt.target;
             if (evt.keyCode == 13){
                 evt.preventDefault();
+                let _data = {
+                    book_path: element.previousElementSibling.firstElementChild.attributes['href'].value,
+                    book_name: element.textContent.trim()
+                }
+                fetch('/rename', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(_data),
+                });
                 element.blur();
             }
             if (evt.keyCode == 27){

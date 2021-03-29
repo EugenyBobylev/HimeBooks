@@ -7,6 +7,9 @@
 </head>
 <body>
     <input placeholder="Enter some text" id="message" />
+    <div>
+        <a href="/book/data">Фигня народа</a>
+    </div>
     <div contenteditable="true" id="msg" class="ht">
        Текст для правки
     </div>
@@ -16,13 +19,15 @@
 
     <p id="result"></p>
     <script>
-      oldValue = "111"
+      oldValue = ""
       var ed = document.querySelectorAll('.ht')
       for (let div of ed){
          div.addEventListener( 'keydown', (evt) =>{
             var element = evt.target
             if (evt.keyCode == 13){
                 evt.preventDefault();
+                var a = element.previousElementSibling.firstElementChild.attributes['href'].value
+                alert(a)
                 element.blur()
             }
             if (evt.keyCode == 27){

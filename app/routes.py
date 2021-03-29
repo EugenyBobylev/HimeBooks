@@ -36,8 +36,9 @@ def open_book():
 
 @app.route('/settings')
 def settings():
-    catalogs = cfg.read_paths()
-    return render_template('settings.html', catalogs=catalogs)
+    _catalogs = cfg.read_paths()
+    print(_catalogs)
+    return render_template('settings.html', catalogs=_catalogs)
 
 
 @app.route('/addcatalog')
@@ -50,3 +51,13 @@ def add_catalog():
 @app.route('/updatecatalogs')
 def update_catalogs():
     return redirect(url_for('settings'))
+
+
+# @app.route('/rename/<name>')
+@app.route('/rename', methods=['POST'])
+def rename_book(name=''):
+    data = request.get_json()
+    # print(data)
+    print(f'{data["book_path"]}')
+    print(f'{data["book_name"]}')
+    return '', 204

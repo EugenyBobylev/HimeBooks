@@ -9,6 +9,11 @@ class Book(db.Model):
     book_name = db.Column(db.String(128))
     cover = None
 
+    def __init__(self, path):
+        self.pdf_name = path
+        self.book_name = Path(path).stem
+        self.set_cover()
+
     def set_cover(self):
         """
         set file name to cover image and if cover image do not exists then create the cover image
@@ -21,6 +26,11 @@ class Book(db.Model):
 
     def exists(self) -> bool:
         return Path(self.pdf_name).exists()
+
+    def __eq__(self, other):
+        if not isinstance(other, Book):
+            return NotImplemented
+        return self.pdf_name == other.pdf_name
 
     def __repr__(self):
         return f'cover: {self.cover}'

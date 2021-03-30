@@ -1,11 +1,26 @@
 from pathlib import Path
 import pickle
 from typing import Dict, List, Any
-from config import Config
 
 from app.models import Book
 
 all_book_files: Dict = {}
+
+
+def rename_book(old_book_path: str, new_book_name: str) -> bool:
+    """
+     Rename pdf book
+    :param old_book_path: path and name of book with extension (.pdf)
+    :param new_book_name: new name of book without extension (.pdf)
+    :return: True when rename was made and new path of new book name with extension
+    """
+    result = False
+    _old_book = Path(old_book_path)
+    if _old_book.exists():
+        _new_book = Path(_old_book.parent) / new_book_name
+        _old_book.rename(_new_book)
+        result = _new_book.exists()
+    return result, str(_new_book)
 
 
 def get_files():
@@ -62,19 +77,26 @@ def init(catalogs: List[str]):
 
 def init_filenames(catalogs: List[str]):
     # TODO Сделать загрузку
+    global all_book_files
+    all_book_files = {}
     for catalog in catalogs:
         all_book_files[catalog] = ''
     find_all_pdf_files()
+
+
+def create_book(path: str) -> Book:
+    """
+    Create instance of Book
+    """
+    book = Book(path)
+    return book
 
 
 def get_books():
     all_books = []
     files = get_files()
     for file_name in files:
-        book = Book()
-        book.pdf_name = file_name
-        book.book_name = Path(file_name).stem
-        book.set_cover()
+        book: Book = create_book(file_name)
         all_books.append(book)
     return all_books
 

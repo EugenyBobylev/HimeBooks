@@ -1,8 +1,9 @@
 import os
+import re
+
 from flask import redirect, render_template, request, url_for
 
 from app import app
-from app.models import Catalog
 import app.bookspdf as pdf
 import app.iniconfig as cfg
 
@@ -57,7 +58,18 @@ def update_catalogs():
 @app.route('/rename', methods=['POST'])
 def rename_book(name=''):
     data = request.get_json()
-    # print(data)
-    print(f'{data["book_path"]}')
-    print(f'{data["book_name"]}')
+    book_path = data["book_path"]
+    book_name = data["book_name"]
+    book_name += '.pdf'
+    match = re.search('path=(.*)', book_path)
+    if match:
+        book_path = match.group(1)
+        result = pdf.rename_book(book_path, book_name)
+        ok = result[0]
+        if ok:
+            book = pdf.create_book(book_path)
+            idx = all_books.index(book)
+            renamed_book_path = result[1]
+            renamed_book = pdf.create_book(renamed_book_path)
+            all_books[idx] = renamed_book
     return '', 204

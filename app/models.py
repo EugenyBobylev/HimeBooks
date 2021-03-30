@@ -1,12 +1,11 @@
 from pathlib import Path
 
-from app import db
 from app.mupdf import get_cover_fn, get_cover_png_fn, cover_exists, save_cover
 
 
-class Book(db.Model):
-    pdf_name = db.Column(db.String(512), primary_key=True)
-    book_name = db.Column(db.String(128))
+class Book(object):
+    pdf_name: str = ''
+    book_name: str = ''
     cover = None
 
     def __init__(self, path):
@@ -36,8 +35,8 @@ class Book(db.Model):
         return f'cover: {self.cover}'
 
 
-class Catalog(db.Model):
-    catalog = db.Column(db.String(512), primary_key=True)
+class Catalog(object):
+    catalog: str = ''
 
     def __repr__(self):
         return f'{self.catalog}'

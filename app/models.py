@@ -1,17 +1,26 @@
 from pathlib import Path
 
 from app.mupdf import get_cover_fn, get_cover_png_fn, cover_exists, save_cover
+from app.xattrpdf import get_meta_tags, set_meta_tags
 
 
 class Book(object):
     pdf_name: str = ''
     book_name: str = ''
     cover = None
+    tags = ''
 
     def __init__(self, path):
         self.pdf_name = path
         self.book_name = Path(path).stem
+        self.get_tags()
         self.set_cover()
+
+    def get_tags(self):
+        self.tags = get_meta_tags(self.pdf_name)
+
+    def set_tags(self, tags: str):
+        set_meta_tags(self.pdf_name, tags)
 
     def set_cover(self):
         """

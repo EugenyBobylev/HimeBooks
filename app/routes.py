@@ -64,11 +64,11 @@ def rename_book(name=''):
     match = re.search('path=(.*)', book_path)
     if match:
         book_path = match.group(1)
+        book = pdf.create_book(book_path)
+        idx = all_books.index(book)
         result = pdf.rename_book(book_path, book_name)
         ok = result[0]
         if ok:
-            book = pdf.create_book(book_path)
-            idx = all_books.index(book)
             renamed_book_path = result[1]
             renamed_book = pdf.create_book(renamed_book_path)
             all_books[idx] = renamed_book

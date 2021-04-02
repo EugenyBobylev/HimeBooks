@@ -57,12 +57,12 @@
       var oldValue = "";
       var ed = document.querySelectorAll('.ht')
       for (let div of ed){
-         div.addEventListener( 'keydown', (evt) =>{
+         div.addEventListener( 'keydown', (evt) => {
   		      var element = evt.target;
             if (evt.keyCode == 13){
                 evt.preventDefault();
                 let _data = {
-                    book_path: element.previousElementSibling.firstElementChild.attributes['href'].value,
+                    book_href: element.previousElementSibling.firstElementChild.attributes['href'].value,
                     book_name: element.textContent.trim()
                 }
                 fetch('/rename', {
@@ -71,8 +71,16 @@
                         'Content-Type': 'application/json;charset=utf-8'
                     },
                     body: JSON.stringify(_data),
-                });
-                element.blur();
+                 })
+
+                 .then(response => response.text())
+                 .then(book_path => {
+                      var pos = _data['book_href'].indexOf('path=')
+                      book_href = _data.book_href.slice(0, pos) +'path=' + book_path;
+                      element.previousElementSibling.firstElementChild.attributes['href'].value = book_href;
+                      element.blur();
+                   });
+
             }
             if (evt.keyCode == 27){
                 element.textContent = oldValue;
@@ -90,7 +98,7 @@
       for (let element of ed){
          element.addEventListener('onchange', function(){
             let _data = {
-                book_path: this.previousElementSibling.previousElementSibling.firstElementChild.attributes['href'].value,
+                book_href: this.previousElementSibling.previousElementSibling.firstElementChild.attributes['href'].value,
                 book_tags: this.value
             }
             fetch('/tagschanged', {

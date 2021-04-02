@@ -31,7 +31,8 @@ def index(page=1):
 def open_book():
     path = request.args.get('path')
     page = request.args.get('page')
-    os.popen(f'okular "{path}"')
+    if path:
+        os.popen(f'okular "{path}"')
     return redirect(url_for('index', page=page))
 
 
@@ -54,24 +55,27 @@ def update_catalogs():
     return redirect(url_for('settings'))
 
 
-def get_pdf_path(arg) -> str:
-    pdf_path = ''
-    match = re.search('path=(.*)', arg)
+def get_book_path(href) -> str:
+    """
+     get book.pdf path from href
+    """
+    book_path = ''
+    match = re.search('path=(.*)', href)
     if match:
-        pdf_path = match.group(1)
-    return pdf_path
+        book_path = match.group(1)
+    return book_path
 
 
 # @app.route('/rename/<name>')
 @app.route('/rename', methods=['POST'])
 def rename_book(name=''):
     data = request.get_json()
-    book_path = data["book_path"]
+    book_href = data["book_href"]
     book_name = data["book_name"]
     book_name += '.pdf'
-    book_path = get_pdf_path(book_path)
+    book_path = get_book_path(book_href)
     if book_path:
-        book = pdf.create_book(book_path)
+        book = [book for book in all_books if book.pdf_name == book_path][0]
         idx = all_books.index(book)
         result = pdf.rename_book(book_path, book_name)
         ok = result[0]
@@ -79,15 +83,15 @@ def rename_book(name=''):
             renamed_book_path = result[1]
             renamed_book = pdf.create_book(renamed_book_path)
             all_books[idx] = renamed_book
-    return '', 204
+    return renamed_book_path, 200
 
 
 @app.route('/tagschanged', methods=['POST'])
 def tags_changed():
     data = request.get_json()
-    book_path = data["book_path"]
+    book_href = data["book_href"]
     book_tags = data["book_tags"]
-    book_path = get_pdf_path(book_path)
+    book_path = get_book_path(book_href)
     if book_path:
         book = [book for book in all_books if book.pdf_name == book_path][0]
         book.set_tags(book_tags)

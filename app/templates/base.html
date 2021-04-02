@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+   <script src="https://jsuites.net/v4/jsuites.js"></script>
+   <script src="https://jsuites.net/v4/jsuites.webcomponents.js"></script>
+   <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+
     <title>{% if title%}{{ title }} {% else %} Просто книги {% endif %}</title>
 </head>
 
@@ -49,37 +54,5 @@
             {% block content%}{% endblock %}
         </div>
     </div>
-    <script>
-      var oldValue = "";
-      var ed = document.querySelectorAll('.ht')
-      for (let div of ed){
-         div.addEventListener( 'keydown', (evt) =>{
-  		      var element = evt.target;
-            if (evt.keyCode == 13){
-                evt.preventDefault();
-                let _data = {
-                    book_path: element.previousElementSibling.firstElementChild.attributes['href'].value,
-                    book_name: element.textContent.trim()
-                }
-                fetch('/rename', {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify(_data),
-                });
-                element.blur();
-            }
-            if (evt.keyCode == 27){
-                element.textContent = oldValue;
-                element.blur();
-            }
-         });
-         div.addEventListener("focus", (evt) =>{
-            var element = event.target;
-	         oldValue = element.textContent;
-         });
-      }
-    </script>
 </body>
 </html>

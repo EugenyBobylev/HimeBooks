@@ -8,3 +8,5 @@
 /app/static/
 /app/static/covers/
 /app/static/config/
+/app/templates/tags.html
+/app/templates/test_tags.html

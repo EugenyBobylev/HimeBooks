@@ -54,6 +54,14 @@ def update_catalogs():
     return redirect(url_for('settings'))
 
 
+def get_pdf_path(arg) -> str:
+    pdf_path = ''
+    match = re.search('path=(.*)', arg)
+    if match:
+        pdf_path = match.group(1)
+    return pdf_path
+
+
 # @app.route('/rename/<name>')
 @app.route('/rename', methods=['POST'])
 def rename_book(name=''):
@@ -61,9 +69,8 @@ def rename_book(name=''):
     book_path = data["book_path"]
     book_name = data["book_name"]
     book_name += '.pdf'
-    match = re.search('path=(.*)', book_path)
-    if match:
-        book_path = match.group(1)
+    book_path = get_pdf_path(book_path)
+    if book_path:
         book = pdf.create_book(book_path)
         idx = all_books.index(book)
         result = pdf.rename_book(book_path, book_name)
@@ -72,4 +79,16 @@ def rename_book(name=''):
             renamed_book_path = result[1]
             renamed_book = pdf.create_book(renamed_book_path)
             all_books[idx] = renamed_book
+    return '', 204
+
+
+@app.route('/tagschanged', methods=['POST'])
+def tags_changed():
+    data = request.get_json()
+    book_path = data["book_path"]
+    book_tags = data["book_tags"]
+    book_path = get_pdf_path(book_path)
+    if book_path:
+        book = [book for book in all_books if book.pdf_name == book_path][0]
+        book.set_tags(book_tags)
     return '', 204

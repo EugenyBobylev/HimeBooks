@@ -89,7 +89,17 @@
       ed = document.querySelectorAll('jsuites-tags');
       for (let element of ed){
          element.addEventListener('onchange', function(){
-            alert(this.value);
+            let _data = {
+                book_path: this.previousElementSibling.previousElementSibling.firstElementChild.attributes['href'].value,
+                book_tags: this.value
+            }
+            fetch('/tagschanged', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(_data),
+            });
          });
       }
     </script>

@@ -21,6 +21,7 @@ class Book(object):
 
     def set_tags(self, tags: str):
         set_meta_tags(self.pdf_name, tags)
+        self.tags = tags
 
     def set_cover(self):
         """

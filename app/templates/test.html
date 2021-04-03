@@ -1,45 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript input Event Demo</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Test</title>
 </head>
 <body>
-    <input placeholder="Enter some text" id="message" />
-    <div>
-        <a href="/book/data">Фигня народа</a>
-    </div>
-    <div contenteditable="true" id="msg" class="ht">
-       Текст для правки
-    </div>
-    <div contenteditable="true" id="msg" class="ht">
-       Текст для правки
-    </div>
-
-    <p id="result"></p>
-    <script>
-      oldValue = ""
-      var ed = document.querySelectorAll('.ht')
-      for (let div of ed){
-         div.addEventListener( 'keydown', (evt) =>{
-            var element = evt.target
-            if (evt.keyCode == 13){
-                evt.preventDefault();
-                var a = element.previousElementSibling.firstElementChild.attributes['href'].value
-                alert(a)
-                element.blur()
-            }
-            if (evt.keyCode == 27){
-                element.textContent = oldValue;
-                element.blur()
-            }
-         });
-         div.addEventListener("focus", (evt) =>{
-            var element = event.target;
-	         oldValue = element.textContent;
-         });
-      }
-    </script>
+   <h3>Привет медведь</h3>
+   <input type="file" id="flup" onchange="getfolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
+	<div id="path"></div>
 </body>
+<script type="text/javascript">
+	function getfolder(e) {
+		var files = e.target.files;
+		var path = files[0].webkitRelativePath;
+		var Folder = path.split("/");
+		var element = document.getElementById('path');
+		element.textContent = path;
+		alert(path);
+}
+</script>
 </html>

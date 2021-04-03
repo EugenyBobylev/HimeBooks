@@ -159,9 +159,7 @@ class Pagination(object):
 
 
 # if __name__ == '__main__':
-#    p = Path(__file__).parent.parent
-#    print(f'p={p}')
-#    print(str(Config.BASE_DIR) + '/app/static/all_books.pkl')
-    # TODO сделать тесты
-#    ddd = init()
-#    print(len(ddd))
+#     my_books = init(['/home/bobylev/Downloads/Books/'])
+#     print(my_books)
+#     selected_books = select_by_name('DOCKER', my_books)
+#     print(selected_books)

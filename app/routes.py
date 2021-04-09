@@ -9,13 +9,26 @@ import app.iniconfig as cfg
 
 ROWS_PER_PAGE = 12
 
-all_books = []
-books = []
+all_books = []   # все книги
+books = []       # все отфильтрованные книги
 
 if not all_books:
     catalogs = cfg.read_paths()
     all_books = pdf.init(catalogs)
     books = all_books.copy()
+
+
+def change_renamed_book(old_book, new_book):
+    """
+    Заменить переименованную книгу во всех коллекциях
+    :param old_book: книга со старым наименованием
+    :param new_book: переименованная кника
+    """
+    idx = all_books.index(old_book)
+    all_books[idx] = new_book
+
+    idx = books.index(old_book)
+    books[idx] = new_book
 
 
 @app.route('/')
@@ -79,13 +92,17 @@ def rename_book(name=''):
     book_path = get_book_path(book_href)
     if book_path:
         book = [book for book in books if book.pdf_name == book_path][0]
-        idx = all_books.index(book)
         result = pdf.rename_book(book_path, book_name)
         ok = result[0]
         if ok:
             renamed_book_path = result[1]
             renamed_book = pdf.create_book(renamed_book_path)
+
+            idx = all_books.index(book)
             all_books[idx] = renamed_book
+
+            idx = books.index(book)
+            books[idx] = renamed_book
     return renamed_book_path, 200
 
 

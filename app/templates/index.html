@@ -54,14 +54,6 @@
     </div>
 
 <script>
-    function validate(form){
-        alert("Не работает");
-        return false;
-    }
-</script>
-<script>
-    function validate(form){
-    }
     var oldValue = "";
     var ed = document.querySelectorAll('.ht')
     for (let div of ed){
@@ -102,21 +94,31 @@
     }
 </script>
 <script>
-      ed = document.querySelectorAll('jsuites-tags');
-      for (let element of ed){
-         element.addEventListener('onchange', function(){
-            let _data = {
-                book_href: this.previousElementSibling.previousElementSibling.firstElementChild.attributes['href'].value,
-                book_tags: this.value
-            }
-            fetch('/tagschanged', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(_data),
-            });
-         });
+    ed = document.querySelectorAll('jsuites-tags');
+    for (let element of ed){
+       element.addEventListener('onchange', function(){
+          let _data = {
+              book_href: this.previousElementSibling.previousElementSibling.firstElementChild.attributes['href'].value,
+              book_tags: this.value
+          }
+          fetch('/tagschanged', {
+              method: "POST",
+              headers: {
+                  'Content-Type': 'application/json;charset=utf-8'
+              },
+              body: JSON.stringify(_data),
+          });
+       });
+    }
+</script>
+<script>
+   function validate(form){
+      if (form.search.value == ""){
+         alert("Не задано условие поиска");
+         return false;
       }
-    </script>
+      return true;
+   }
+</script>
+
 {% endblock %}

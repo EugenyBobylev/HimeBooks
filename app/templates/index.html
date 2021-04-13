@@ -112,6 +112,11 @@
     }
 </script>
 <script>
+   el = document.getElementById('reset-btn')
+   el.addEventListener( 'click', () => {
+        fetch('/resetsearch');
+   });
+
    function validate(form){
       if (form.search.value == ""){
          alert("Не задано условие поиска");
@@ -121,8 +126,13 @@
    }
 
    function resetSearch(){
-     alert("нажата кнопка Сброс")
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", '/resetsearch', false);
+      xhr.send();
+      if(xhr.status == 200)
+        document.location.href = xhr.responseText;
    }
+
 </script>
 
 {% endblock %}

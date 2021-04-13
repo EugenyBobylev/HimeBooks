@@ -36,10 +36,13 @@ def change_renamed_book(old_book, new_book):
 @app.route('/page/<int:page>')
 @app.route('/index/page/<int:page>')
 def index(page=1):
+    print("execute index()")
     page = request.args.get('page', page, type=int)
+    print(f'page={page}')
     page_books: pdf.Pagination = pdf.paginate(books, page=page, per_page=ROWS_PER_PAGE)
     for book in page_books.items:
         book.set_cover()
+        print(f'name="{book.book_name}"')
     return render_template('index.html', books=page_books)
 
 
@@ -132,3 +135,11 @@ def find_books():
     else:
         books = all_books.copy()
     return redirect('/index?pge=1')
+
+
+@app.route('/resetsearch')
+def reset_search_books():
+    global books
+    books = all_books.copy()
+
+    return '/index', 200

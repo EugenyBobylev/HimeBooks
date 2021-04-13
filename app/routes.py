@@ -1,13 +1,14 @@
 import os
 import re
 
-from flask import redirect, render_template, request, url_for
+from flask import redirect, render_template, request, url_for, make_response
 
 from app import app
 import app.bookspdf as pdf
 import app.iniconfig as cfg
 
 ROWS_PER_PAGE = 12
+COOKIE_SEARCH = 'search'
 
 all_books = []   # все книги
 books = []       # все отфильтрованные книги
@@ -38,12 +39,13 @@ def change_renamed_book(old_book, new_book):
 def index(page=1):
     print("execute index()")
     page = request.args.get('page', page, type=int)
+    search_value = request.cookies.get(COOKIE_SEARCH) if request.cookies.get(COOKIE_SEARCH) else ''
     print(f'page={page}')
     page_books: pdf.Pagination = pdf.paginate(books, page=page, per_page=ROWS_PER_PAGE)
     for book in page_books.items:
         book.set_cover()
         print(f'name="{book.book_name}"')
-    return render_template('index.html', books=page_books)
+    return render_template('index.html', books=page_books, search_value=search_value)
 
 
 @app.route('/book')
@@ -124,22 +126,29 @@ def tags_changed():
 @app.route('/findbooks', methods=['POST'])
 def find_books():
     part = request.form['part']
+    res = make_response(redirect('/index?pge=1'))
     global books
     if part and part != '':
         filtered_books = [book for book in all_books if book.book_name.lower().find(part.lower()) >= 0]
         if len(filtered_books) > 0:
             books = filtered_books.copy()
+            res.set_cookie(COOKIE_SEARCH, part)
         else:
             print('Книги не найдены')
             return '', 204
     else:
         books = all_books.copy()
-    return redirect('/index?pge=1')
+        res.set_cookie(COOKIE_SEARCH, part, max_age=0)
+    #  return redirect('/index?pge=1')
+    return res
 
 
 @app.route('/resetsearch')
 def reset_search_books():
     global books
     books = all_books.copy()
+    res = make_response('/index')
+    if request.cookies.get(COOKIE_SEARCH):
+        res.set_cookie(COOKIE_SEARCH, '', max_age=0)
 
-    return '/index', 200
+    return res

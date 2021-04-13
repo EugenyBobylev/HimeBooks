@@ -34,7 +34,8 @@
             <form class="navbar-form navbar-left" name="findBookForm" role="search" action="{{ url_for('find_books') }}"
                   onsubmit="return validate(this);" method="post">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="search" placeholder="найти книгу" name="part">
+                    <input type="text" class="form-control" id="search"
+                           placeholder="найти книгу" name="part" value="{{search_value}}">
                 </div>
                 <button type="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-search" aria-hidden="true">

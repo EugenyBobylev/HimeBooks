@@ -136,10 +136,6 @@ def find_books():
         else:
             print('Книги не найдены')
             return '', 204
-    else:
-        books = all_books.copy()
-        res.set_cookie(COOKIE_SEARCH, part, max_age=0)
-    #  return redirect('/index?pge=1')
     return res
 
 

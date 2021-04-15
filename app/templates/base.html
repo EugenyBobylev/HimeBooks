@@ -22,31 +22,25 @@
 </head>
 
 <body>
-    <nav class="nav  navbar-expand-lg navbar-light bg-light">
-       <div class="navbar-brand">ProfiTeam</div>
-       <div class="collapse navbar-collapse" id="navbarNav">
-           <ul class="navbar-nav  mr-2">
-              <li class="nav-item {% if request.path.startswith('/index') %} active {% endif %}">
-                 <a class="nav-link" href="{{ url_for('index') }}">Каталог</a>
-              </li>
-              <li class="nav-item {% if request.path.startswith('/settings') %} active {% endif %}">
-                 <a class="nav-link" href="{{ url_for('settings') }}">Настройки</a>
-              </li>
-           </ul>
+   <nav class="nav  navbar-expand-lg navbar-light bg-light">
+      <div class="navbar-brand">ProfiTeam</div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav  mr-2">
+             <li class="nav-item {% if request.path.startswith('/index') %} active {% endif %}">
+                <a class="nav-link" href="{{ url_for('index') }}">Каталог</a>
+             </li>
+             <li class="nav-item {% if request.path.startswith('/settings') %} active {% endif %}">
+                <a class="nav-link" href="{{ url_for('settings') }}">Настройки</a>
+             </li>
+          </ul>
 
-           <form class="form-inline  navbar-left" name="findBookForm" role="search" action="{{ url_for('find_books') }}"  onsubmit="return validate(this);" method="post">
-              <input type="text" class="form-control" id="search" placeholder="найти книгу" name="part" value="{{search_value}}">
-              <button type="submit" class="btn btn-sm btn-outline-primary mx-2">Искать</button>
-              <button type="reset" class="btn btn-sm btn-outline-primary" id="reset-btn" onclick="resetSearch()">Сброс</button>
-           </form>
-       </div>
-    </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            {% block content%}{% endblock %}
-        </div>
-    </div>
-
+          <form class="form-inline  navbar-left" name="findBookForm" role="search" action="{{ url_for('find_books') }}"  onsubmit="return validate(this);" method="post">
+             <input type="text" class="form-control" id="search" placeholder="найти книгу" name="part" value="{{search_value}}">
+             <button type="submit" class="btn btn-sm btn-outline-primary mx-2">Искать</button>
+             <button type="reset" class="btn btn-sm btn-outline-primary" id="reset-btn" onclick="resetSearch()">Сброс</button>
+          </form>
+      </div>
+   </nav>
+   {% block content%}{% endblock %}
 </body>
 </html>

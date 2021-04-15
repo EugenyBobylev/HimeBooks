@@ -33,46 +33,45 @@
       </ul>
     </nav>
 
+   <div class="container-fluid">
+     <div class="row">
 
+       <div class="row no-gutters">
+       {% for book in books.items %}
+           <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+               <div class="card m-2">
+                   <a href="/book?page={{books.page}}&path={{book.pdf_name}}">
+                       <img class="card-img-top" src="/static/covers/{{book.cover}}"/>
+                   </a>
+                   <div class="card-body">
+                       <div class="caption ht"   contenteditable="true">
+                           <p class="text-center" style="word-break: break-word;" >{{ book.book_name}}</p>
+                       </div>
+                       {% if book.tags %}
+                       <jsuites-tags value="{{book.tags}}"></jsuites-tags>
+                       {% else%}
+                       <jsuites-tags value=" "></jsuites-tags>
+                       {% endif %}
+                   </div>
+               </div>
+           </div>
+       {% endfor %}
+       </div>
 
-
-
-<div class="container-fluid">
-  <div class="row">
-
-    <div class="row aligned-row">
-    {% for book in books.items %}
-        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-item">
-            <div class="thumbnail">
-                <a href="/book?page={{books.page}}&path={{book.pdf_name}}">
-                    <img src="/static/covers/{{book.cover}}"/>
-                </a>
-            </div>
-            <div class="caption ht"   contenteditable="true">
-                <p class="text-center" style="word-break: break-word;" >{{ book.book_name}}</p>
-            </div>
-            {% if book.tags %}
-                <jsuites-tags value="{{book.tags}}"></jsuites-tags>
-            {% else%}
-                <jsuites-tags value=" "></jsuites-tags>
-            {% endif %}
-        </div>
-    {% endfor %}
-    </div>
-
-  </div>
-</div>
+     </div>
+   </div>
 
 <script>
     var oldValue = "";
     var ed = document.querySelectorAll('.ht')
     for (let div of ed){
         div.addEventListener( 'keydown', (evt) => {
-  		      var element = evt.target;
             if (evt.keyCode == 13){
                 evt.preventDefault();
+      		    var element = evt.target;
+      		    var card = element.closest('.card');
                 let _data = {
-                    book_href: element.previousElementSibling.firstElementChild.attributes['href'].value,
+                    book_href: card.firstElementChild.attributes['href'].value,
                     book_name: element.textContent.trim()
                 }
                 fetch('/rename', {
@@ -104,7 +103,7 @@
     }
 </script>
 <script>
-    ed = document.querySelectorAll('jsuites-tags');
+ed = document.querySelectorAll('jsuites-tags');
     for (let element of ed){
        element.addEventListener('onchange', function(){
           let _data = {

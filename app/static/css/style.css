@@ -1,13 +1,3 @@
-.aligned-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.flex-item {
-  margin-bottom: 10px;
-}
-
 .ht:hover {
   background-color:rgba(217, 245, 255,0.5);
 }

@@ -119,7 +119,6 @@ def paginate(full_data=None, page=None, per_page=None):
     if full_data:
         filtered_data = filter_exist_books(full_data)
     if filtered_data and page and per_page and page > 0 and per_page > 0:
-        pagination.page = page
         pagination.per_page = per_page
 
         first = (page-1) * per_page
@@ -131,6 +130,7 @@ def paginate(full_data=None, page=None, per_page=None):
         pagination.has_prev = (page > 1)
         pagination.next_num = page + 1 if pagination.has_next else page
         pagination.prev_num = page - 1 if pagination.has_prev else page
+        pagination.page = page if page <= pagination.pages else pagination.pages
 
     return pagination
 

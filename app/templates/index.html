@@ -66,7 +66,7 @@
         div.addEventListener( 'keydown', (evt) => {
             if (evt.keyCode == 13){
                 evt.preventDefault();
-      		    var element = evt.target;
+                var element = evt.target;
       		    var card = element.closest('.card');
                 let _data = {
                     book_href: card.firstElementChild.attributes['href'].value,
@@ -90,8 +90,9 @@
 
             }
             if (evt.keyCode == 27){
-                element.textContent = oldValue;
-                element.blur();
+               var element = evt.target;
+               element.textContent = oldValue;
+               element.blur();
             }
         });
         div.addEventListener("focus", (evt) =>{

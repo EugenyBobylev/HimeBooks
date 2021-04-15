@@ -22,39 +22,24 @@
 </head>
 
 <body>
-    <nav class="nav navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <div class="navbar-brand">
-                    ProfITeam
-                </div>
-            </div>
-            <ul class="nav navbar-nav">
-                <li {% if request.path.startswith('/index') %} class="active" {% endif %}>
-                    <a href="{{ url_for('index') }}">Каталог</a>
-                </li>
-                <li {% if request.path=='/settings' %} class="active" {% endif %}>
-                    <a href="{{ url_for('settings') }}">Настройки</a>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left" name="findBookForm" role="search" action="{{ url_for('find_books') }}"
-                  onsubmit="return validate(this);" method="post">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="search"
-                           placeholder="найти книгу" name="part" value="{{search_value}}">
-                </div>
-                <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true">
-                        Искать
-                    </span>
-                </button>
-                <button type="reset" class="btn btn-default" id="reset-btn" onclick="resetSearch()">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true">
-                        Сброс
-                    </span>
-                </button>
-            </form>
-        </div>
+    <nav class="nav  navbar-expand-lg navbar-light bg-light">
+       <div class="navbar-brand">ProfiTeam</div>
+       <div class="collapse navbar-collapse" id="navbarNav">
+           <ul class="navbar-nav  mr-2">
+              <li class="nav-item {% if request.path.startswith('/index') %} active {% endif %}">
+                 <a class="nav-link" href="{{ url_for('index') }}">Каталог</a>
+              </li>
+              <li class="nav-item {% if request.path.startswith('/settings') %} active {% endif %}">
+                 <a class="nav-link" href="{{ url_for('settings') }}">Настройки</a>
+              </li>
+           </ul>
+
+           <form class="form-inline  navbar-left" name="findBookForm" role="search" action="{{ url_for('find_books') }}"  onsubmit="return validate(this);" method="post">
+              <input type="text" class="form-control" id="search" placeholder="найти книгу" name="part" value="{{search_value}}">
+              <button type="submit" class="btn btn-sm btn-outline-primary mx-2">Искать</button>
+              <button type="reset" class="btn btn-sm btn-outline-primary" id="reset-btn" onclick="resetSearch()">Сброс</button>
+           </form>
+       </div>
     </nav>
 
     <div class="container-fluid">

@@ -106,11 +106,11 @@ def delete_book(name):
     per_page = ROWS_PER_PAGE
     page = int(idx / per_page) + (1 if idx % per_page else 0)
 
+    pdf.delete(book)
     all_books.remove(book)
     books.remove(book)
 
     print(f'page:{page}, idx:{idx}, per_page:{per_page}, delete book: "{book.name}"')
-    # return '', 204
     return redirect(url_for('index', page=page))
 
 

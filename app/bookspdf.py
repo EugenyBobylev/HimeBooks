@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import pickle
 from typing import Dict, List, Any
@@ -21,6 +22,13 @@ def rename_book(old_book_path: str, new_book_name: str) -> bool:
         _old_book.rename(_new_book)
         result = _new_book.exists()
     return result, str(_new_book)
+
+
+def delete(book: Book) -> bool:
+    path = book.pdf
+    if Path(path).exists():
+        os.remove(path)
+    return not Path(path).exists()
 
 
 def get_files():

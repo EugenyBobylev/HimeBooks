@@ -43,11 +43,13 @@
                      <div class="caption ht"   contenteditable="true">
                          <p class="text-center" style="word-break: break-word;" >{{ book.name}}</p>
                      </div>
+                     <!--
                      {% if book.tags %}
                      <jsuites-tags value="{{book.tags}}"></jsuites-tags>
                      {% else%}
                      <jsuites-tags value=" "></jsuites-tags>
                      {% endif %}
+                     -->
                      <!-- trash icon -->
                      <ul class="icon">
                          <li><a href="{{ url_for('delete_book', name=book.name) }}"><i class="bi-trash"></i></a></li>
@@ -84,7 +86,7 @@
                  .then(book_path => {
                       var pos = _data['book_href'].indexOf('path=')
                       book_href = _data.book_href.slice(0, pos) +'path=' + book_path;
-                      element.previousElementSibling.firstElementChild.attributes['href'].value = book_href;
+                      card.firstElementChild.attributes['href'].value = book_href;
                       element.blur();
                    });
 

@@ -3,10 +3,15 @@
 /*
 .box1 .icon,.box2,.box3,.box4,.box5 .icon li a{text-align:center}
 .box10:after,.box10:before,.box1:after,.box1:before,.box2 .inner-content:after,.box3:after,.box3:before,.box4:before,.box5:after,.box5:before,.box6:after,.box7:after,.box7:before{content:""}
-.box1,.box11,.box12,.box13,.box14,.box16,.box17,.box18,.box2,.box20,.box21,.box3,.box4,.box5,.box5 .icon li a,.box6,.box7,.box8{overflow:hidden}
+*/
+/*.box1,.box11,.box12,.box13,.box14,.box16,.box17,.box18,.box2,.box20,.box21,.box3,.box4,.box5,.box5 .icon li a,.box6,.box7,.box8{overflow:hidden}*/
+.box1,.box5 .icon li a{overflow:hidden}
+/*
 .box1 .title,.box10 .title,.box4 .title,.box7 .title{letter-spacing:1px}
 .box3 .post,.box4 .post,.box5 .post,.box7 .post{font-style:italic}
+*/
 body{background-color:#f1f1f2}
+/*
 .mt-30{margin-top:30px}
 .mt-40{margin-top:40px}
 .mb-30{margin-bottom:30px}

@@ -5,3 +5,15 @@
 .box-shadow-hover:hover {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
+
+/*********************** card trash effects *******************/
+.card .icon {text-align:center}
+.card{overflow:hidden}
+body{background-color:#f1f1f2}
+.card .icon{margin:0;position:absolute}
+.card:after,.box1:before{height:50%;background:rgba(0,0,0,.5);position:absolute;top:0;left:0;z-index:1;transform-origin:100% 0;transform:rotateZ(90deg)}
+.card:after{top:auto;bottom:0;transform-origin:0 100%}
+.card .icon{padding:7px 5px;list-style:none;background:#004cbf;border-radius:0 0 0 10px;top:-100%;right:0;z-index:2;transition:all .3s ease .2s}
+.card:hover .icon{top:0}
+.card .icon li{display:block;margin:10px 0}
+.card .icon li a{display:block;width:35px;height:35px;line-height:35px;border-radius:10px;font-size:18px;color:#fff;transition:all .3s ease 0s}

@@ -50,7 +50,7 @@
                      {% endif %}
                      <!-- trash icon -->
                      <ul class="icon">
-                         <li><a href="#"><i class="bi-trash"></i></a></li>
+                         <li><a href="{{ url_for('delete_book', name=book.book_name) }}"><i class="bi-trash"></i></a></li>
                      </ul>
                   </div>
               </div>

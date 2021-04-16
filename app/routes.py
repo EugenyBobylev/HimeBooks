@@ -97,7 +97,13 @@ def get_book_path(href) -> str:
     return book_path
 
 
-# @app.route('/rename/<name>')
+@app.route('/delete/<name>')
+def delete_book(name):
+    name = request.args.get('name', name, type=str)
+    print(f'delete book: "{name}"')
+    return '', 204
+
+
 @app.route('/rename', methods=['POST'])
 def rename_book(name=''):
     data = request.get_json()

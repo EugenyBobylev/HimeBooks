@@ -35,7 +35,7 @@ def change_renamed_book(old_book, new_book):
 def filter_books(search_value: str):
     _books = []
     if search_value and search_value != '':
-        _books = [book for book in all_books if book.book_name.lower().find(search_value.lower()) >= 0]
+        _books = [book for book in all_books if book.name.lower().find(search_value.lower()) >= 0]
     else:
         _books = all_books.copy()
     print('Oooooooppppsssss!!!!')
@@ -112,7 +112,7 @@ def rename_book(name=''):
     book_name += '.pdf'
     book_path = get_book_path(book_href)
     if book_path:
-        book = [book for book in books if book.pdf_name == book_path][0]
+        book = [book for book in books if book.pdf == book_path][0]
         result = pdf.rename_book(book_path, book_name)
         ok = result[0]
         if ok:
@@ -134,7 +134,7 @@ def tags_changed():
     book_tags = data["book_tags"]
     book_path = get_book_path(book_href)
     if book_path:
-        book = [book for book in all_books if book.pdf_name == book_path][0]
+        book = [book for book in all_books if book.pdf == book_path][0]
         book.set_tags(book_tags)
     return '', 204
 

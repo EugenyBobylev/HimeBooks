@@ -36,12 +36,12 @@
       {% for book in books.items %}
           <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
               <div class="card box-shadow-hover m-2">
-                  <a href="/book?page={{books.page}}&path={{book.pdf_name}}">
+                  <a href="/book?page={{books.page}}&path={{book.pdf}}">
                      <img class="card-img-top" src="/static/covers/{{book.cover}}"/>
                   </a>
                   <div class="card-body">
                      <div class="caption ht"   contenteditable="true">
-                         <p class="text-center" style="word-break: break-word;" >{{ book.book_name}}</p>
+                         <p class="text-center" style="word-break: break-word;" >{{ book.name}}</p>
                      </div>
                      {% if book.tags %}
                      <jsuites-tags value="{{book.tags}}"></jsuites-tags>
@@ -50,7 +50,7 @@
                      {% endif %}
                      <!-- trash icon -->
                      <ul class="icon">
-                         <li><a href="{{ url_for('delete_book', name=book.book_name) }}"><i class="bi-trash"></i></a></li>
+                         <li><a href="{{ url_for('delete_book', name=book.name) }}"><i class="bi-trash"></i></a></li>
                      </ul>
                   </div>
               </div>

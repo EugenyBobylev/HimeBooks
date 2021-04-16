@@ -32,31 +32,27 @@
     </nav>
 
    <div class="container-fluid">
-     <div class="row">
-
-       <div class="row no-gutters">
-       {% for book in books.items %}
-           <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-               <div class="card box-shadow-hover m-2">
-                   <a href="/book?page={{books.page}}&path={{book.pdf_name}}">
-                       <img class="card-img-top" src="/static/covers/{{book.cover}}"/>
-                   </a>
-                   <div class="card-body">
-                       <div class="caption ht"   contenteditable="true">
-                           <p class="text-center" style="word-break: break-word;" >{{ book.book_name}}</p>
-                       </div>
-                       {% if book.tags %}
-                       <jsuites-tags value="{{book.tags}}"></jsuites-tags>
-                       {% else%}
-                       <jsuites-tags value=" "></jsuites-tags>
-                       {% endif %}
-                   </div>
-               </div>
-           </div>
-       {% endfor %}
-       </div>
-
-     </div>
+      <div class="row no-gutters">
+      {% for book in books.items %}
+          <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+              <div class="card box-shadow-hover m-2">
+                  <a href="/book?page={{books.page}}&path={{book.pdf_name}}">
+                      <img class="card-img-top" src="/static/covers/{{book.cover}}"/>
+                  </a>
+                  <div class="card-body">
+                      <div class="caption ht"   contenteditable="true">
+                          <p class="text-center" style="word-break: break-word;" >{{ book.book_name}}</p>
+                      </div>
+                      {% if book.tags %}
+                      <jsuites-tags value="{{book.tags}}"></jsuites-tags>
+                      {% else%}
+                      <jsuites-tags value=" "></jsuites-tags>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+      {% endfor %}
+      </div>
    </div>
 
 <script>

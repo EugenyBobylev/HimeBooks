@@ -100,8 +100,18 @@ def get_book_path(href) -> str:
 @app.route('/delete/<name>')
 def delete_book(name):
     name = request.args.get('name', name, type=str)
-    print(f'delete book: "{name}"')
-    return '', 204
+    book = [book for book in books if book.name == name][0]
+
+    idx = books.index(book) + 1  # because pages count from 1
+    per_page = ROWS_PER_PAGE
+    page = int(idx / per_page) + (1 if idx % per_page else 0)
+
+    all_books.remove(book)
+    books.remove(book)
+
+    print(f'page:{page}, idx:{idx}, per_page:{per_page}, delete book: "{book.name}"')
+    # return '', 204
+    return redirect(url_for('index', page=page))
 
 
 @app.route('/rename', methods=['POST'])

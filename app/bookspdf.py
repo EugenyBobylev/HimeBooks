@@ -147,6 +147,8 @@ class Pagination(object):
     total: int = None       # the total number of items
 
     def iter_pages(self, left_edge=2, left_current=2, right_current=2, right_edge=2):
+        if not self.has_prev and not self.has_next:
+            return []
         _data = list(range(1, self.pages+1))
         result1 = set(_data[0:left_edge])
         left = self.page-left_current-1
@@ -158,8 +160,8 @@ class Pagination(object):
         return list(result1.union(result2).union(result3))
 
 
-# if __name__ == '__main__':
-#     my_books = init(['/home/bobylev/Downloads/Books/'])
-#     print(my_books)
-#     selected_books = select_by_name('DOCKER', my_books)
-#     print(selected_books)
+if __name__ == '__main__':
+    my_data = []
+    paginator = paginate(my_data, 1, 12)
+    paginator.iter_pages()
+    print('*' * 100)

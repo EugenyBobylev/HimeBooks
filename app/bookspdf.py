@@ -147,7 +147,7 @@ class Pagination(object):
     total: int = None       # the total number of items
 
     def iter_pages(self, left_edge=2, left_current=2, right_current=2, right_edge=2):
-        if not self.has_prev and not self.has_next:
+        if not self.items or len(self.items) == 0:
             return []
         _data = list(range(1, self.pages+1))
         result1 = set(_data[0:left_edge])

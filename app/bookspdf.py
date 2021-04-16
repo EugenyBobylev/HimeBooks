@@ -45,6 +45,7 @@ def find_pdf_files(catalog):
     Get file name of pdf's files
     """
     pdf_files = [str(file) for file in Path(catalog).iterdir() if file.suffix == '.pdf']
+    pdf_files.sort()
     return pdf_files
 
 
@@ -84,7 +85,6 @@ def init(catalogs: List[str]):
 
 
 def init_filenames(catalogs: List[str]):
-    # TODO Сделать загрузку
     global all_book_files
     all_book_files = {}
     for catalog in catalogs:
@@ -168,8 +168,7 @@ class Pagination(object):
         return list(result1.union(result2).union(result3))
 
 
-if __name__ == '__main__':
-    my_data = []
-    paginator = paginate(my_data, 1, 12)
-    paginator.iter_pages()
-    print('*' * 100)
+# if __name__ == '__main__':
+#    result = find_pdf_files('/home/bobylev/Downloads/Telegram Desktop/')
+#    for book in result:
+#        print(book)
